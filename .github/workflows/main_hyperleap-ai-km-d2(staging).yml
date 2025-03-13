@@ -40,7 +40,7 @@ jobs:
     runs-on: windows-latest
     needs: build
     environment:
-      name: 'staging'
+      name: 'production'
       url: ${{ steps.deploy-to-webapp.outputs.webapp-url }}
 
     steps:
@@ -54,6 +54,5 @@ jobs:
         uses: azure/webapps-deploy@v3
         with:
           app-name: 'hyperleap-ai-km-d2'
-          slot-name: 'staging'
           package: .
           publish-profile: ${{ secrets.AZUREAPPSERVICE_PUBLISHPROFILE_DC2FA2E02C914677ADA9B3B9378574B1 }}

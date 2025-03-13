@@ -19,11 +19,11 @@ internal static class Program
     private static readonly List<string> s_toDelete = [];
 
     // Change this to True and configure Azure Document Intelligence to test OCR and support for images
-    private const bool ImageSupportDemoEnabled = true;
+    private const bool ImageSupportDemoEnabled = false;
 
     public static async Task Main()
     {
-        s_memory = new MemoryWebClient("http://127.0.0.1:9001/");
+        s_memory = new MemoryWebClient("https://localhost:54509/", "pLaIjVrh9Df0vF9ANYXfNCIumUs-WLfNfesUn2AhgHV");
 
         // =======================
         // === INGESTION =========
@@ -36,7 +36,7 @@ internal static class Program
         await StoreWebPage();
         await StoreHTMLFile();
         await StoreWithCustomPipeline();
-        await StoreImage();
+        //await StoreImage();
         await StoreExcel();
         await StoreJson();
         Console.WriteLine("\n====================================\n");
@@ -57,7 +57,7 @@ internal static class Program
 
         await AskSimpleQuestionStreamingTheAnswer();
         await AskSimpleQuestionStreamingAndShowSources();
-        await AskQuestionAboutImageContent();
+        //await AskQuestionAboutImageContent();
         await AskQuestionUsingFilter();
         await AskQuestionsFilteringByUser();
         await AskQuestionsFilteringByTypeTag();
@@ -376,6 +376,7 @@ internal static class Program
     // Ask about image content
     private static async Task AskQuestionAboutImageContent()
     {
+        if (!ImageSupportDemoEnabled) { return; }
         var question = "Which conference is Microsoft sponsoring?";
         Console.WriteLine($"Question: {question}");
         Console.WriteLine($"Expected result: Microsoft is sponsoring the Automotive News World Congress 2023 event");
